@@ -1,3 +1,5 @@
+
+import 'package:car_app/features/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,6 +11,8 @@ class CarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+      home: WelcomeScreen(),
+    );
   }
 }
