@@ -1,3 +1,8 @@
+<<<<<<< Updated upstream
+=======
+import 'package:car_app/features/welcome/auth/screens/sign_in_screen.dart';
+import 'package:car_app/features/welcome/welcome_screen.dart';
+>>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,6 +14,12 @@ class CarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< Updated upstream
     return MaterialApp();
+=======
+    return const MaterialApp(
+      home: WelcomeScreen(),
+    );
+>>>>>>> Stashed changes
   }
 }
