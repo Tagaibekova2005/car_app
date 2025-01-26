@@ -1,27 +1,31 @@
+
 import 'package:car_app/core/resource/app_assets.dart';
 import 'package:car_app/core/resource/extensions/int_extension.dart';
 import 'package:car_app/core/resource/extensions/textstyles_extensions.dart';
 import 'package:car_app/features/welcome/auth/auth_text_fieled.dart';
 import 'package:car_app/features/welcome/auth/screens/app_textstyles.dart';
+import 'package:car_app/features/welcome/auth/screens/auth_button.dart';
+import 'package:car_app/features/welcome/auth/screens/sign_in_screen.dart';
 import 'package:car_app/service/shared_prefs.dart';
 import 'package:flutter/material.dart';
-import 'package:car_app/features/welcome/auth/screens/auth_button.dart';
-import 'package:car_app/features/welcome/auth/screens/sign_up_screen.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _nameController = TextEditingController();
   final _loginController = TextEditingController();
   final _passwordController = TextEditingController();
+
   final _prefs = SharedPrefs();
 
   @override
   void dispose() {
+    _nameController.dispose();
     _loginController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -38,35 +42,40 @@ class _SignInScreenState extends State<SignInScreen> {
             children: [
               71.verticalSpace,
               Text(
-                'Sign In',
+                'Sign Up',
                 style: AppTextstyles.regular.setSize(48),
               ),
               100.verticalSpace,
               AuthTextFieled(
+                  controller: _nameController,
+                  hint: 'Full name',
+                  title: 'Enter your name'),
+              20.verticalSpace,
+              AuthTextFieled(
                   controller: _loginController,
-                  hint: 'Enter email',
+                  hint: 'Loremipsum@gmail.com',
                   title: 'EMAIL OR PHONE'),
               25.verticalSpace,
-              Text(
-                'PASSWORD',
-                style: AppTextstyles.regular.setSize(14),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: '********'),
-              ),
-              10.verticalSpace,
-              Text('Forgot password?'),
+              AuthTextFieled(
+                  controller: _passwordController,
+                  hint: '*******',
+                  title: 'PASSWORD'),
               40.verticalSpace,
               InkWell(
-                onTap: () async {
-                  final login = await _prefs.read(key: StorageKey.login);
-                  final password = await _prefs.read(key: StorageKey.password);
-                  if (login == _loginController.text && password == _passwordController.text) {
-                    
-                  }
+                onTap: () {
+                  _prefs.save(
+                      key: StorageKey.login, value: _loginController.text);
+                  _prefs.save(
+                      key: StorageKey.password,
+                      value: _passwordController.text);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInScreen(),
+                    ),
+                  );
                 },
                 child: Container(
-                  height: 60,
                   padding:
                       const EdgeInsets.symmetric(vertical: 14, horizontal: 52),
                   width: double.infinity,
@@ -75,7 +84,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: SizedBox(
-                      child: Text('Log In',
+                      child: Text('Sign Up',
                           style: AppTextstyles.semiBold
                               .setSize(20)
                               .copyWith(color: Colors.white)),
@@ -98,16 +107,18 @@ class _SignInScreenState extends State<SignInScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Don’t Have an account yet?'),
+                  Text('Have an account Already?'),
                   InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => const SignInScreen(),
+                        ),
                       );
                     },
                     child: Text(
-                      'SIGN UP',
+                      'SIGN IN',
                       style: TextStyle(
                           color: Color(0xffFCC21B),
                           fontWeight: FontWeight.w700,

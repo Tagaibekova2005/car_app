@@ -1,7 +1,5 @@
-import 'package:car_app/features/welcome/auth/screens/sign_in_screen.dart';
 import 'package:car_app/features/welcome/welcome_screen.dart';
 
-import 'package:car_app/features/welcome/welcome_screen.dart';
 
 import 'package:flutter/material.dart';
 
