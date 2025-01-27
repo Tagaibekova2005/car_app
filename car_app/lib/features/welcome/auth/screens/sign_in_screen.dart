@@ -1,6 +1,10 @@
+import 'package:car_app/core/mixins/app_notice.dart';
 import 'package:car_app/core/resource/app_assets.dart';
+import 'package:car_app/core/resource/extensions/context_extension.dart';
 import 'package:car_app/core/resource/extensions/int_extension.dart';
+import 'package:car_app/core/resource/extensions/list_extension.dart';
 import 'package:car_app/core/resource/extensions/textstyles_extensions.dart';
+import 'package:car_app/features/home/home_screen.dart';
 import 'package:car_app/features/welcome/auth/auth_text_fieled.dart';
 import 'package:car_app/features/welcome/auth/screens/app_textstyles.dart';
 import 'package:car_app/service/shared_prefs.dart';
@@ -15,7 +19,7 @@ class SignInScreen extends StatefulWidget {
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInScreenState extends State<SignInScreen> with AppNotice {
   final _loginController = TextEditingController();
   final _passwordController = TextEditingController();
   final _prefs = SharedPrefs();
@@ -61,18 +65,22 @@ class _SignInScreenState extends State<SignInScreen> {
                 onTap: () async {
                   final login = await _prefs.read(key: StorageKey.login);
                   final password = await _prefs.read(key: StorageKey.password);
-                  if (login == _loginController.text && password == _passwordController.text) {
-                    
+                  if (login == _loginController.text &&
+                      password == _passwordController.text) {
+                    showError(errorText: 'Ошибка при авторизации');
+                  } else {
+                    showSuccess(message: 'Успешный вход');
+                    context.push(
+                      const HomeScreen(),
+                    );
                   }
                 },
                 child: Container(
                   height: 60,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 14, horizontal: 52),
+                  padding: [12, 60].symmetricPadding,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: Color(0xff2B4C59),
-                      borderRadius: BorderRadius.circular(10)),
+                      color: Color(0xff2B4C59), borderRadius: 10.borderRadius),
                   child: Center(
                     child: SizedBox(
                       child: Text('Log In',

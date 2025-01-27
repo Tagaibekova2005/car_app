@@ -1,3 +1,5 @@
+import 'package:car_app/core/resource/extensions/int_extension.dart';
+import 'package:car_app/core/resource/extensions/list_extension.dart';
 import 'package:car_app/core/resource/extensions/textstyles_extensions.dart';
 import 'package:car_app/features/welcome/auth/screens/app_textstyles.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +17,9 @@ class AuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 60),
+      padding: [12, 60].symmetricPadding,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: 10.borderRadius,
         border: Border.all(
           color: Colors.black87,
           width: 2,

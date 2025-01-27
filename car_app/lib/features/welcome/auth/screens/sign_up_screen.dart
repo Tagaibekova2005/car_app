@@ -1,6 +1,7 @@
-
 import 'package:car_app/core/resource/app_assets.dart';
+import 'package:car_app/core/resource/extensions/context_extension.dart';
 import 'package:car_app/core/resource/extensions/int_extension.dart';
+import 'package:car_app/core/resource/extensions/list_extension.dart';
 import 'package:car_app/core/resource/extensions/textstyles_extensions.dart';
 import 'package:car_app/features/welcome/auth/auth_text_fieled.dart';
 import 'package:car_app/features/welcome/auth/screens/app_textstyles.dart';
@@ -68,20 +69,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   _prefs.save(
                       key: StorageKey.password,
                       value: _passwordController.text);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignInScreen(),
-                    ),
-                  );
+                  context.push(const SignInScreen());
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 14, horizontal: 52),
+                  padding: [12, 52].symmetricPadding,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: Color(0xff2B4C59),
-                      borderRadius: BorderRadius.circular(10)),
+                      color: Color(0xff2B4C59), borderRadius: 10.borderRadius),
                   child: Center(
                     child: SizedBox(
                       child: Text('Sign Up',
